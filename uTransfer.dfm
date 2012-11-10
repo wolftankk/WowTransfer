@@ -50,10 +50,13 @@ object frmTransfer: TfrmTransfer
     Top = 23
     Width = 375
     Height = 24
-    AlwaysShowPopup = False
     OnBeforeDialog = edtWowAccountPathBeforeDialog
     DialogKind = dkWin32
-    AutoCompleteOptions = [acoAutoSuggest, acoAutoAppend, acoUpDownKeyDropsList, acoRTLReading]
+    DialogText = #35831#25351#23450'WoW'#36335#24452
+    AutoCompleteOptions = [acoAutoSuggest, acoAutoAppend, acoUseTab, acoUpDownKeyDropsList, acoRTLReading]
+    Flat = False
+    ParentFlat = False
+    DialogOptionsWin32 = [odOnlyDirectory, odStatusAvailable, odNewDialogStyle]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
