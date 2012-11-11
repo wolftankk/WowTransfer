@@ -175,9 +175,7 @@ begin
     begin
       sRealm := sRealmPath.Substring(sSelectedAccount.Length + 1);
       if (not SameText(sRealm, 'SavedVariables')) then
-      begin
-        cbbOriginRealm.Items.Add(sRealm)
-      end;
+        cbbOriginRealm.Items.Add(sRealm);
     end;
 
     if (cbbOriginRealm.Items.Count > 0) then
@@ -249,7 +247,6 @@ begin
   end
   else
     ShowMessage('请指定WoW安装路径');
-
 end;
 
 // 选择帐号
@@ -278,10 +275,7 @@ procedure TfrmTransfer.lbledtNewRealmExit(Sender: TObject);
 begin
   sNewRealm := lbledtNewRealm.Text;
   if (SameText(sNewRealm, EmptyStr)) then
-  begin
     ShowMessage('请输入新的服务器');
-    Exit;
-  end;
 end;
 
 procedure TfrmTransfer.lbledtNewCharacterNameChange(Sender: TObject);
@@ -293,10 +287,7 @@ procedure TfrmTransfer.lbledtNewCharacterNameExit(Sender: TObject);
 begin
   sNewCharacter := lbledtNewCharacterName.Text;
   if (SameText(sNewCharacter, EmptyStr)) then
-  begin
     ShowMessage('请输入新的角色名');
-    Exit;
-  end;
 end;
 
 procedure TfrmTransfer.btnReplaceSubmitClick(Sender: TObject);
@@ -373,8 +364,7 @@ var
   sFile:string;
   i:Integer;
 begin
-  FilesList := TDirectory.GetFiles(sPath, '*.lua',
-    TSearchOption.soAllDirectories);
+  FilesList := TDirectory.GetFiles(sPath, '*.lua', TSearchOption.soAllDirectories);
   FileHandler := TStringList.Create;
   try
     for sFile in FilesList do
