@@ -1,4 +1,4 @@
-unit uTransfer;
+ï»¿unit uTransfer;
 
 interface
 
@@ -37,8 +37,8 @@ type
 
   private
     { Private declarations }
-    sWowPath: string; // Wow°²×°Â·¾¶
-    sSelectedAccount: string; // Ñ¡ÔñµÄÕÊºÅ
+    sWowPath: string; // Wowå®‰è£…è·¯å¾„
+    sSelectedAccount: string; // é€‰æ‹©çš„å¸å·
     sOriginRealm, sOriginCharacter: string;
     sNewRealm, sNewCharacter: string;
 
@@ -60,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-// ¸´ÖÆÎÄ¼ş»òÕßÄ¿Â¼
+// å¤åˆ¶æ–‡ä»¶æˆ–è€…ç›®å½•
 function TfrmTransfer._CopyFile(const sName, dName: string): Boolean;
 var
   s1, s2: string;
@@ -86,12 +86,12 @@ begin
 end;
 
 { -------------------------------------------------------------------------------
-  ¹ı³ÌÃû:    TfrmTransfer.GetWowPath
-  ×÷Õß:      wolftankk
-  ÈÕÆÚ:      2012.11.09
-  ËµÃ÷:	     »ñÈ¡WowÂ·¾¶
-  ²ÎÊı:      ÎŞ
-  ·µ»ØÖµ:    string
+  è¿‡ç¨‹å:    TfrmTransfer.GetWowPath
+  ä½œè€…:      wolftankk
+  æ—¥æœŸ:      2012.11.09
+  è¯´æ˜:	     è·å–Wowè·¯å¾„
+  å‚æ•°:      æ— 
+  è¿”å›å€¼:    string
   ------------------------------------------------------------------------------- }
 function TfrmTransfer.GetWowPath: string;
 var
@@ -112,12 +112,12 @@ begin
 end;
 
 { -------------------------------------------------------------------------------
-  ¹ı³ÌÃû:    TfrmTransfer.ValidWowPath
-  ×÷Õß:      wolftankk
-  ÈÕÆÚ:      2012.11.09
-  ËµÃ÷:	     ÑéÖ¤WOW°²×°Â·¾¶ÊÇ·ñÓĞĞ§
-  ²ÎÊı:      sWowInstallPath: string
-  ·µ»ØÖµ:    Boolean
+  è¿‡ç¨‹å:    TfrmTransfer.ValidWowPath
+  ä½œè€…:      wolftankk
+  æ—¥æœŸ:      2012.11.09
+  è¯´æ˜:	     éªŒè¯WOWå®‰è£…è·¯å¾„æ˜¯å¦æœ‰æ•ˆ
+  å‚æ•°:      sWowInstallPath: string
+  è¿”å›å€¼:    Boolean
   ------------------------------------------------------------------------------- }
 function TfrmTransfer.ValidWowPath(sWowInstallPath: string): Boolean;
 begin
@@ -130,12 +130,12 @@ begin
 end;
 
 { -------------------------------------------------------------------------------
-  ¹ı³ÌÃû:    TfrmTransfer.UpdateAccountList
-  ×÷Õß:      wolftankk
-  ÈÕÆÚ:      2012.11.09
-  ËµÃ÷:	     »ñÈ¡WoWÄ¿Â¼ÏÂËùÓĞÕÊºÅĞÅÏ¢
-  ²ÎÊı:      ÎŞ
-  ·µ»ØÖµ:    begin
+  è¿‡ç¨‹å:    TfrmTransfer.UpdateAccountList
+  ä½œè€…:      wolftankk
+  æ—¥æœŸ:      2012.11.09
+  è¯´æ˜:	     è·å–WoWç›®å½•ä¸‹æ‰€æœ‰å¸å·ä¿¡æ¯
+  å‚æ•°:      æ— 
+  è¿”å›å€¼:    begin
   ------------------------------------------------------------------------------- }
 procedure TfrmTransfer.UpdateAccountList;
 var
@@ -216,16 +216,16 @@ begin
   end;
 end;
 
-// ½çÃæ²¿·Ö´¦Àí
+// ç•Œé¢éƒ¨åˆ†å¤„ç†
 procedure TfrmTransfer.FormCreate(Sender: TObject);
 begin
   sWowPath := GetWowPath;
   edtWowAccountPath.Directory := sWowPath;
   if (ValidWowPath(sWowPath)) then
   begin
-    // »ñµÃËùÓĞÕÊºÅÁĞ±í
+    // è·å¾—æ‰€æœ‰å¸å·åˆ—è¡¨
     UpdateAccountList();
-    // »ñµÃËùÓĞ·şÎñÆ÷ÁĞ±í
+    // è·å¾—æ‰€æœ‰æœåŠ¡å™¨åˆ—è¡¨
     UpdateOriginRealmsList();
   end;
 end;
@@ -236,7 +236,7 @@ begin
   edtWowAccountPath.InitialDir := AName;
 end;
 
-// Ñ¡ÔñwowÂ·¾¶
+// é€‰æ‹©wowè·¯å¾„
 procedure TfrmTransfer.edtWowAccountPathExit(Sender: TObject);
 begin
   cbbAccountsList.Items.Clear;
@@ -246,10 +246,10 @@ begin
     UpdateAccountList;
   end
   else
-    ShowMessage('ÇëÖ¸¶¨WoW°²×°Â·¾¶');
+    ShowMessage('è¯·æŒ‡å®šWoWå®‰è£…è·¯å¾„');
 end;
 
-// Ñ¡ÔñÕÊºÅ
+// é€‰æ‹©å¸å·
 procedure TfrmTransfer.cbbAccountsListClick(Sender: TObject);
 begin
   sSelectedAccount := LinkPath(LinkPath(sWowPath, 'WTF\Account'),
@@ -275,7 +275,7 @@ procedure TfrmTransfer.lbledtNewRealmExit(Sender: TObject);
 begin
   sNewRealm := lbledtNewRealm.Text;
   if (SameText(sNewRealm, EmptyStr)) then
-    ShowMessage('ÇëÊäÈëĞÂµÄ·şÎñÆ÷');
+    ShowMessage('è¯·è¾“å…¥æ–°çš„æœåŠ¡å™¨');
 end;
 
 procedure TfrmTransfer.lbledtNewCharacterNameChange(Sender: TObject);
@@ -287,7 +287,7 @@ procedure TfrmTransfer.lbledtNewCharacterNameExit(Sender: TObject);
 begin
   sNewCharacter := lbledtNewCharacterName.Text;
   if (SameText(sNewCharacter, EmptyStr)) then
-    ShowMessage('ÇëÊäÈëĞÂµÄ½ÇÉ«Ãû');
+    ShowMessage('è¯·è¾“å…¥æ–°çš„è§’è‰²å');
 end;
 
 procedure TfrmTransfer.btnReplaceSubmitClick(Sender: TObject);
@@ -298,33 +298,33 @@ var
   sOriginRealmPath, sNewRealmPath: string;
   sOriginCharacterPath, sNewCharacterPath: string;
 begin
-  // ÑéÖ¤!
+  // éªŒè¯!
   if (SameText(sOriginRealm, EmptyStr)) then
   begin
-    ShowMessage('ÇëÑ¡ÔñÔ´·şÎñÆ÷');
+    ShowMessage('è¯·é€‰æ‹©æºæœåŠ¡å™¨');
     Exit;
   end;
 
   if (SameText(sOriginCharacter, EmptyStr)) then
   begin
-    ShowMessage('ÇëÑ¡ÔñÔ´½ÇÉ«');
+    ShowMessage('è¯·é€‰æ‹©æºè§’è‰²');
     Exit;
   end;
 
   if (SameText(sNewRealm, EmptyStr)) then
   begin
-    ShowMessage('ÇëÊäÈëÄ¿±ê·şÎñÆ÷');
+    ShowMessage('è¯·è¾“å…¥ç›®æ ‡æœåŠ¡å™¨');
     Exit;
   end;
 
   if (SameText(sNewCharacter, EmptyStr)) then
   begin
-    ShowMessage('ÇëÊäÈëĞÂ½ÇÉ«Ãû');
+    ShowMessage('è¯·è¾“å…¥æ–°è§’è‰²å');
     Exit;
   end;
 
   Application.NormalizeTopMosts;
-  if (Application.MessageBox('ÄãÈ·ÈÏ¿ªÊ¼Ç¨ÒÆÂğ?', 'È·ÈÏ¿ò', MB_OKCANCEL) = 1) then
+  if (Application.MessageBox('ä½ ç¡®è®¤å¼€å§‹è¿ç§»å—?', 'ç¡®è®¤æ¡†', MB_OKCANCEL) = 1) then
   begin
     sFullAccountPath := LinkPath(LinkPath(sWowPath, 'WTF/Account'),
       sSelectedAccount);
@@ -347,9 +347,9 @@ begin
       _CopyFile(sOriginCharacterPath, sNewCharacterPath);
     end;
 
-    // ĞŞ¸ÄÅäÖÃ
+    // ä¿®æ”¹é…ç½®
     UpdateLuaConfigure(sNewCharacterPath);
-    //±¸·İ
+    //å¤‡ä»½
     _CopyFile(sGlobalSavedVariablesPath, LinkPath(sFullAccountPath, 'SavedVariables_backup'));
     UpdateLuaConfigure(sGlobalSavedVariablesPath);
   end;
