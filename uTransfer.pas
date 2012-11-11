@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Controls,
   Vcl.Mask, JvExMask, JvToolEdit, System.IOUtils, System.Types,
-  Vcl.Forms, Vcl.Dialogs, MetropolisUI.Tile, CnCommon, System.Win.Registry,
+  Vcl.Forms, Vcl.Dialogs, CnCommon, System.Win.Registry,
   JvBaseDlg, JvSelectDirectory, ShellAPI;
 
 type
@@ -42,7 +42,6 @@ type
     sOriginRealm, sOriginCharacter: string;
     sNewRealm, sNewCharacter: string;
 
-    function _CopyFile(const sName, dName: string): Boolean;
     function GetWowPath: string;
     function ValidWowPath(sWowInstallPath: string): Boolean;
     procedure UpdateLuaConfigure(sPath: string);
@@ -53,6 +52,8 @@ type
     { Public declarations }
   end;
 
+function _CopyFile(const sName, dName: string): Boolean;
+
 var
   frmTransfer: TfrmTransfer;
 
@@ -61,7 +62,7 @@ implementation
 {$R *.dfm}
 
 // 复制文件或者目录
-function TfrmTransfer._CopyFile(const sName, dName: string): Boolean;
+function _CopyFile(const sName, dName: string): Boolean;
 var
   s1, s2: string;
   lpFileOp: TSHFileOpStruct;
@@ -158,7 +159,6 @@ begin
     sSelectedAccount := LinkPath(sAccountsPath, cbbAccountsList.Items[0]);
   end;
 end;
-
 
 procedure TfrmTransfer.UpdateOriginRealmsList;
 var
@@ -293,7 +293,7 @@ end;
 procedure TfrmTransfer.btnReplaceSubmitClick(Sender: TObject);
 var
   sFullAccountPath: string;
-  sGlobalSavedVariablesPath:string;
+  sGlobalSavedVariablesPath: string;
 
   sOriginRealmPath, sNewRealmPath: string;
   sOriginCharacterPath, sNewCharacterPath: string;
@@ -329,7 +329,7 @@ begin
     sFullAccountPath := LinkPath(LinkPath(sWowPath, 'WTF/Account'),
       sSelectedAccount);
 
-    sGlobalSavedVariablesPath:=LinkPath(sFullAccountPath, 'SavedVariables');
+    sGlobalSavedVariablesPath := LinkPath(sFullAccountPath, 'SavedVariables');
 
     sOriginRealmPath := LinkPath(sFullAccountPath, sOriginRealm);
     sNewRealmPath := LinkPath(sFullAccountPath, sNewRealm);
@@ -349,8 +349,9 @@ begin
 
     // 修改配置
     UpdateLuaConfigure(sNewCharacterPath);
-    //备份
-    _CopyFile(sGlobalSavedVariablesPath, LinkPath(sFullAccountPath, 'SavedVariables_backup'));
+    // 备份
+    _CopyFile(sGlobalSavedVariablesPath, LinkPath(sFullAccountPath,
+      'SavedVariables_backup'));
     UpdateLuaConfigure(sGlobalSavedVariablesPath);
   end;
   Application.RestoreTopMosts;
@@ -361,21 +362,25 @@ procedure TfrmTransfer.UpdateLuaConfigure(sPath: string);
 var
   FilesList: TStringDynArray;
   FileHandler: TStringList;
-  sFile:string;
-  i:Integer;
+  sFile: string;
+  i: Integer;
 begin
-  FilesList := TDirectory.GetFiles(sPath, '*.lua', TSearchOption.soAllDirectories);
+  FilesList := TDirectory.GetFiles(sPath, '*.lua',
+    TSearchOption.soAllDirectories);
   FileHandler := TStringList.Create;
   try
     for sFile in FilesList do
     begin
       FileHandler.LoadFromFile(sFile, TEncoding.UTF8);
-      for i:=0 to FileHandler.Count - 1 do
+      for i := 0 to FileHandler.Count - 1 do
       begin
-        if (Pos(sOriginRealm, FileHandler[i]) > 0) or (Pos(sOriginCharacter, FileHandler[i]) > 0) then
+        if (Pos(sOriginRealm, FileHandler[i]) > 0) or
+          (Pos(sOriginCharacter, FileHandler[i]) > 0) then
         begin
-          FileHandler[i]:=StringReplace(FileHandler[i], sOriginRealm, sNewRealm, [rfReplaceAll, rfIgnoreCase]);
-          FileHandler[i]:=StringReplace(FileHandler[i], sOriginCharacter, sNewCharacter, [rfReplaceAll, rfIgnoreCase])
+          FileHandler[i] := StringReplace(FileHandler[i], sOriginRealm,
+            sNewRealm, [rfReplaceAll, rfIgnoreCase]);
+          FileHandler[i] := StringReplace(FileHandler[i], sOriginCharacter,
+            sNewCharacter, [rfReplaceAll, rfIgnoreCase])
         end
       end;
       FileHandler.SaveToFile(sFile, TEncoding.UTF8);

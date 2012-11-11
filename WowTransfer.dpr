@@ -2,7 +2,7 @@ program WowTransfer;
 
 uses
   Vcl.Forms,
-  uTransfer in 'uTransfer.pas' {frmTransfer},
+  uTransfer in 'uTransfer.pas' {frmTransfer} ,
   Vcl.Themes,
   Vcl.Styles;
 
@@ -14,4 +14,5 @@ begin
   TStyleManager.TrySetStyle('Light');
   Application.CreateForm(TfrmTransfer, frmTransfer);
   Application.Run;
+
 end.
